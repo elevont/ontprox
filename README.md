@@ -10,11 +10,11 @@ SPDX-License-Identifier: CC0-1.0
     https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](
     LICENSE.txt)
 [![REUSE status](
-    https://api.reuse.software/badge/github.com/hoijui/ontprox)](
-    https://api.reuse.software/info/github.com/hoijui/ontprox)
+    https://api.reuse.software/badge/codeberg.org/elevont/ontprox)](
+    https://api.reuse.software/info/codeberg.org/elevont/ontprox)
 [![Repo](
-    https://img.shields.io/badge/Repo-GitHub-555555&logo=github.svg)](
-    https://github.com/hoijui/ontprox)
+    https://img.shields.io/badge/CodeBerg.org-green?style=flat&label=Repo)](
+    https://codeberg.org/elevont/ontprox)
 [![Package Releases](
     https://img.shields.io/crates/v/ontprox.svg)](
     https://crates.io/crates/ontprox)
@@ -22,11 +22,11 @@ SPDX-License-Identifier: CC0-1.0
     https://docs.rs/ontprox/badge.svg)](
     https://docs.rs/ontprox)
 [![Dependency Status](
-    https://deps.rs/repo/github/hoijui/ontprox/status.svg)](
-    https://deps.rs/repo/github/hoijui/ontprox)
+    https://deps.rs/repo/github/elevont/ontprox/status.svg)](
+    https://deps.rs/repo/github/elevont/ontprox)
 [![Build Status](
-    https://github.com/hoijui/ontprox/workflows/build/badge.svg)](
-    https://github.com/hoijui/ontprox/actions)
+    https://github.com/elevont/ontprox/workflows/build/badge.svg)](
+    https://github.com/elevont/ontprox/actions)
 
 A tiny HTTP service that allows to fetch an [RDF] [ontology]
 in a variety of different formats
@@ -73,7 +73,7 @@ As for now, you have two choices:
 
 1. [Compile it](#how-to-compile) yourself
 1. Download a Linux x86\_64 statically linked binary from
-   [the latest release](https://github.com/hoijui/ontprox/releases/latest)
+   [the latest release](https://codeberg.org/elevont/ontprox/releases/latest)
 
 ### Run
 
@@ -171,7 +171,7 @@ On most platforms, the best way to do this is with [RustUp].
 Then get the sources with:
 
 ```bash
-git clone --recurse-submodules https://github.com/hoijui/ontprox.git
+git clone --recurse-submodules https://codeberg.org/elevont/ontprox.git
 cd ontprox
 ```
 
@@ -192,7 +192,7 @@ the executable can be found at `target/debug/ontprox`.
 [pyLODE]: https://github.com/RDFLib/pyLODE
 [RDF]: https://www.w3.org/RDF/
 [RDF-tools]: https://gitlab.com/OSEGermany/rdf-tools
-[rdftools]: https://github.com/hoijui/rdftools
+[rdftools]: https://github.com/elevont/rdftools
 [RDFlib]: https://rdflib.readthedocs.io
 [RustUp]: https://rustup.rs/
 [ValueFlows]: https://valueflo.ws/

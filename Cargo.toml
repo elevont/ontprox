@@ -13,8 +13,8 @@ description = """
     (e.g. RDF/XML, JSON-LD, Turtle, ...),
     as long as it is available in one of them.
     """
-repository = "https://github.com/hoijui/ontprox"
-homepage = "https://github.com/hoijui/ontprox"
+repository = "https://codeberg.org/elevont/ontprox"
+homepage = "https://codeberg.org/elevont/ontprox"
 publish = false
 keywords = ["cli", "rdf", "web-service", "conversion", "ontology"]
 categories = ["caching", "command-line-utilities", "web-programming::http-server"]
