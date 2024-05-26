@@ -1070,7 +1070,9 @@ dependencies = [
 
 [[package]]
 name = "rdfoothills"
-version = "0.1.0"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f0e5c45c92fc266e1eacca6528e8ff3d55f44d881aaa29cba844350fc51dff5c"
 dependencies = [
  "async-trait",
  "git-version",

@@ -7,12 +7,7 @@ name = "ontprox"
 version = "0.1.0"
 license = "AGPL-3.0-or-later"
 authors = ["Robin Vobruba <hoijui.quaero@gmail.com>"]
-description = """
-    A tiny HTTP service that allows to fetch an RDF ontology
-    in a variety of different formats
-    (e.g. RDF/XML, JSON-LD, Turtle, ...),
-    as long as it is available in one of them.
-    """
+description = """RDF format conversion as a web-service."""
 repository = "https://codeberg.org/elevont/ontprox"
 homepage = "https://codeberg.org/elevont/ontprox"
 keywords = ["cli", "rdf", "web-service", "conversion", "ontology"]
@@ -55,7 +50,7 @@ git-version = "0.3"
 mediatype = "0.19"
 once_cell = "1.19"
 openssl = { version = "=0.10.64", features = ["vendored"] }
-rdfoothills = { path = "../rdfoothills" }
+rdfoothills = "0.2"
 regex = "1.10"
 reqwest = "0.12"
 serde = { version = "1.0", features = ["derive"] }
