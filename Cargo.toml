@@ -15,9 +15,9 @@ description = """
     """
 repository = "https://codeberg.org/elevont/ontprox"
 homepage = "https://codeberg.org/elevont/ontprox"
-publish = false
 keywords = ["cli", "rdf", "web-service", "conversion", "ontology"]
 categories = ["caching", "command-line-utilities", "web-programming::http-server"]
+publish = true
 readme = "README.md"
 edition = "2021"
 
