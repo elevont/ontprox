@@ -15,9 +15,9 @@ description = """
     """
 repository = "https://github.com/hoijui/ontprox"
 homepage = "https://github.com/hoijui/ontprox"
-keywords = ["cli", "ci", "utility", "parsing", "git"] # TODO
-categories = ["command-line-utilities", "filesystem", "text-processing"] # TODO
 publish = false
+keywords = ["cli", "rdf", "web-service", "conversion", "ontology"]
+categories = ["caching", "command-line-utilities", "web-programming::http-server"]
 readme = "README.md"
 edition = "2021"
 
