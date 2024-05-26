@@ -28,15 +28,48 @@ SPDX-License-Identifier: CC0-1.0
     https://github.com/elevont/ontprox/workflows/build/badge.svg)](
     https://github.com/elevont/ontprox/actions)
 
+RDF format conversion as a web-service.
+
+## What
+
 A tiny HTTP service that allows to fetch an [RDF] [ontology]
 in a variety of different formats
 (e.g. RDF/XML, JSON-LD, Turtle, ...),
 as long as it is available in one of them.
 
-For example, an ontology is served under IRI/URI
+## Why
+
+This tool - when hosted - comes in handy
+when trying to comply with [best practise of publishinig ontologies/vocabularies](
+https://www.w3.org/TR/swbp-vocab-pub/#negotiation),
+as part of that pracice suggests to use [content negotation]
+to provide the ontology in different formats.
+We could just statically convert our ontology into different formats,
+and be done with it.
+As ontologies can somehow be though of standards for communication,
+it would be good if they'd be very stable in most cases.
+In practice though - as live goes -
+it is pretty unwise to consider them as static,
+never changing entities of the digital world;
+that would mean,
+setting ourselfs up for failure, stagnation, ... project death.
+No! Ontologies _have to_ change,
+and in practice, they do.
+Just as in software, they are best hosted on [VCS/SCM][VCS] like [git].
+Naturally, they will also have versions - releases and latest development states,
+all of which we might want to make available (under different [IRI/URI][URI]s),
+_following best practise_ for publishing ontologies.
+This is unfeasible/impractical to do by hosting statically converted files
+for each revision for each RDF serialization format + HTML.
+Thats where this tool enters the scene.
+
+## How
+
+As an example,
+let us imagine an ontology is served under IRI/URI
 <https://w3id.org/someorg/ont/thisone>
 as Turtle.
-This service can then be used as a proxy,
+This tool - hosted as a public service - can then be used as a proxy,
 given this URI plus a target MIME-type
 (through the HTTP `Accept` header) -
 for example `application/ld+json` or `text/html`;
@@ -196,3 +229,7 @@ the executable can be found at `target/debug/ontprox`.
 [RDFlib]: https://rdflib.readthedocs.io
 [RustUp]: https://rustup.rs/
 [ValueFlows]: https://valueflo.ws/
+[content negotation]: https://en.wikipedia.org/wiki/Content_negotiation
+[VCS]: https://en.wikipedia.org/wiki/Version_control
+[git]: https://git-scm.com/
+[URI]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
