@@ -29,8 +29,9 @@ SPDX-License-Identifier: CC0-1.0
     https://github.com/hoijui/ontprox/actions)
 
 A tiny HTTP service that allows to fetch an [RDF] [ontology]
-that is available in one/a few format(s),
-in others.
+in a variety of different formats
+(e.g. RDF/XML, JSON-LD, Turtle, ...),
+as long as it is available in one of them.
 
 For example, an ontology is served under IRI/URI
 <https://w3id.org/someorg/ont/thisone>
