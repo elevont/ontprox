@@ -7,6 +7,7 @@ use axum::{
     http::{header::CONTENT_TYPE, HeaderMap, StatusCode},
 };
 use once_cell::sync::Lazy;
+use rdfoothills::conversion::OntFile;
 use regex::Regex;
 use reqwest::header::CONTENT_DISPOSITION;
 use std::ffi::OsStr;
@@ -15,7 +16,7 @@ use std::path::Path as StdPath;
 use tokio_util::io::ReaderStream;
 use url::Url;
 
-use crate::{cache::OntFile, mime};
+use crate::mime;
 
 pub async fn create_dir<P: AsRef<StdPath> + Send>(dir: P) {
     create_dir_res(dir.as_ref())

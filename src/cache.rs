@@ -2,13 +2,14 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-use crate::hasher;
 use crate::mime;
 use crate::ont_request::OntRequest;
 use crate::util::*;
 use axum::http::{header::CONTENT_TYPE, StatusCode};
 use futures::future::join_all;
 use mediatype::MediaType;
+use rdfoothills::conversion::OntFile;
+use rdfoothills::hasher;
 use reqwest::Url;
 use std::ffi::OsStr;
 use std::io;
@@ -80,11 +81,6 @@ pub async fn look_for_ont_file(
 
 pub fn ont_file(ont_cache_dir: &StdPath, mime_type: mime::Type) -> PathBuf {
     ont_cache_dir.join(format!("{ONT_FILE_PREFIX}.{}", mime_type.file_ext()))
-}
-
-pub struct OntFile {
-    pub file: PathBuf,
-    pub mime_type: mime::Type,
 }
 
 pub struct OntCacheFile {

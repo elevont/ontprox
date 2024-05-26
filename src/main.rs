@@ -5,20 +5,19 @@
 mod cache;
 mod cli;
 mod constants;
-mod conversion;
-mod hasher;
 mod logger;
-mod mime;
 mod ont_request;
 mod util;
 
-use crate::conversion::convert;
 use crate::ont_request::DlOrConv;
 use crate::ont_request::OntRequest;
 use axum::extract::State;
 use axum::{http::StatusCode, response::IntoResponse, routing::get, Router};
 use cache::*;
 use cli_utils::BoxResult;
+use rdfoothills::conversion::convert;
+use rdfoothills::conversion::OntFile;
+use rdfoothills::mime;
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use tower_http::trace::TraceLayer;
@@ -132,11 +131,23 @@ async fn handler_rdf(
                     .filter(|ont_cache| mime::Type::is_machine_readable(ont_cache.mime_type))
                     .collect();
                 for mr_ont_cache_file in machine_readable_cached_ont_files {
-                    // let mtype = mr_ont_cache_file.mime_type;
-                    let conversion_res =
-                        convert(&ont_request, &ont_cache_dir, mr_ont_cache_file).await;
-                    if let Ok(converted) = conversion_res {
-                        return body_response(&converted).await;
+                    let requested_ont_file_path =
+                        cache::ont_file(&ont_cache_dir, ont_request.mime_type);
+                    let requested_ont_file = OntFile {
+                        file: requested_ont_file_path,
+                        mime_type: ont_request.mime_type,
+                    };
+                    if convert(mr_ont_cache_file, &requested_ont_file)
+                        .await
+                        .map_err(|err| {
+                            (
+                                StatusCode::INTERNAL_SERVER_ERROR,
+                                format!("Failed to convert the cached ontology: {err}"),
+                            )
+                        })
+                        .is_ok()
+                    {
+                        return body_response(&requested_ont_file).await;
                     }
                 }
             }
@@ -158,14 +169,20 @@ async fn handler_rdf(
         // This is possible, if the ontology server returned a different format then the one we requested
         if dled_ont.mime_type.is_machine_readable() {
             let dled_ont_file = dled_ont.into_ont_file();
-            let conversion_res = convert(&ont_request, &ont_cache_dir, &dled_ont_file).await;
-            let output_ont_file = conversion_res.map_err(|err| {
-                (
-                    StatusCode::INTERNAL_SERVER_ERROR,
-                    format!("Failed to convert the downloaded ontology: {err}"),
-                )
-            })?;
-            body_response(&output_ont_file).await
+            let requested_ont_file_path = cache::ont_file(&ont_cache_dir, ont_request.mime_type);
+            let requested_ont_file = OntFile {
+                file: requested_ont_file_path,
+                mime_type: ont_request.mime_type,
+            };
+            convert(&dled_ont_file, &requested_ont_file)
+                .await
+                .map_err(|err| {
+                    (
+                        StatusCode::INTERNAL_SERVER_ERROR,
+                        format!("Failed to convert the downloaded ontology: {err}"),
+                    )
+                })?;
+            body_response(&requested_ont_file).await
         } else {
             Err((StatusCode::INTERNAL_SERVER_ERROR, format!(
                 "As the format returned by the server ({}) is not machine-readable, it cannot be converted into the requested format.",
