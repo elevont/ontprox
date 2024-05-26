@@ -18,9 +18,6 @@ SPDX-License-Identifier: CC0-1.0
 [![Package Releases](
     https://img.shields.io/crates/v/ontprox.svg)](
     https://crates.io/crates/ontprox)
-[![Documentation Releases](
-    https://docs.rs/ontprox/badge.svg)](
-    https://docs.rs/ontprox)
 [![Dependency Status](
     https://deps.rs/repo/github/elevont/ontprox/status.svg)](
     https://deps.rs/repo/github/elevont/ontprox)
