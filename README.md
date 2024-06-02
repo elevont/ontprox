@@ -15,6 +15,9 @@ SPDX-License-Identifier: CC0-1.0
 [![Repo](
     https://img.shields.io/badge/CodeBerg.org-green?style=flat&label=Repo)](
     https://codeberg.org/elevont/ontprox)
+[![Statistics](
+    https://img.shields.io/badge/Statistics-8946FF?style=flat&label=lib.rs&labelColor=EEEEEE)](
+    https://lib.rs/ontprox)
 [![Package Releases](
     https://img.shields.io/crates/v/ontprox.svg)](
     https://crates.io/crates/ontprox)
