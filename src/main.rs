@@ -18,9 +18,10 @@ use cache::*;
 use clap::crate_name;
 use cli_utils::logging;
 use cli_utils::BoxResult;
-use rdfoothills::conversion;
-use rdfoothills::conversion::OntFile;
-use rdfoothills::mime;
+use rdfoothills_base as base;
+use rdfoothills_conversion as conversion;
+use rdfoothills_conversion::OntFile;
+use rdfoothills_mime as mime;
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use tower_http::trace::TraceLayer;
@@ -64,7 +65,7 @@ fn main() -> BoxResult<()> {
 
 #[tokio::main]
 async fn run_proxy(config: &Config) {
-    create_dir(config.cache_root.as_path()).await;
+    base::util::create_dir_async(config.cache_root.as_path()).await;
 
     // build our application
     let route = Router::new().route("/", get(handler_rdf).with_state(config.clone()));
@@ -96,7 +97,7 @@ async fn convert(
     output_ont_file: &OntFile,
     cached: bool,
 ) -> Result<(HeaderMap, Body), (StatusCode, String)> {
-    let converter_info = conversion::convert(input_ont_file, output_ont_file)
+    let converter_info = conversion::convert_async(input_ont_file, output_ont_file)
         .await
         .map_err(|err| {
             (
@@ -123,13 +124,15 @@ async fn handler_rdf(
     let ont_cache_dir = ont_dir(&config.cache_root, &ont_request.uri);
     let ont_file_required = ont_file(&ont_cache_dir, ont_request.mime_type);
 
-    let ont_might_be_cached = ensure_dir_exists(&ont_cache_dir)
+    let ont_might_be_cached = base::util::ensure_dir_exists_async(&ont_cache_dir)
         .await
         .map_err(|err| format!("Failed to ensure directory path exists - '{err}'"))
         .unwrap();
 
     if ont_might_be_cached {
-        let ont_file_required_exists = look_for_file(&ont_file_required).await.unwrap();
+        let ont_file_required_exists = base::util::look_for_file_async(&ont_file_required)
+            .await
+            .unwrap();
         if ont_file_required_exists {
             return Ok(respond_with_body(
                 &ont_file_required,

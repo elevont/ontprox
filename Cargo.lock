@@ -934,8 +934,9 @@ dependencies = [
  "mediatype",
  "once_cell",
  "openssl",
- "rdfoothills",
- "regex",
+ "rdfoothills-base",
+ "rdfoothills-conversion",
+ "rdfoothills-mime",
  "reqwest",
  "serde",
  "thiserror",
@@ -1190,18 +1191,36 @@ dependencies = [
 ]
 
 [[package]]
-name = "rdfoothills"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a3ec4f79930bb39b3ba561d6789f43064d2d32b89fab1a8c19edfd8e7c93cde1"
+name = "rdfoothills-base"
+version = "0.4.0"
+dependencies = [
+ "git-version",
+ "once_cell",
+ "regex",
+ "tokio",
+ "url",
+]
+
+[[package]]
+name = "rdfoothills-conversion"
+version = "0.4.0"
 dependencies = [
  "async-trait",
- "git-version",
+ "once_cell",
+ "oxrdfio",
+ "rdfoothills-mime",
+ "thiserror",
+ "tokio",
+]
+
+[[package]]
+name = "rdfoothills-mime"
+version = "0.4.0"
+dependencies = [
  "infer",
  "mediatype",
  "once_cell",
- "oxrdfio",
- "serde",
+ "rdfoothills-base",
  "thiserror",
  "tokio",
 ]

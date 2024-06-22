@@ -4,12 +4,11 @@
 
 use crate::mime;
 use crate::ont_request::OntRequest;
-use crate::util::*;
 use axum::http::{header::CONTENT_TYPE, StatusCode};
 use futures::future::join_all;
 use mediatype::MediaType;
-use rdfoothills::conversion::OntFile;
-use rdfoothills::hasher;
+use rdfoothills_base as base;
+use rdfoothills_conversion::OntFile;
 use reqwest::Url;
 use std::ffi::OsStr;
 use std::io;
@@ -18,10 +17,10 @@ use std::{path::Path as StdPath, path::PathBuf};
 pub const ONT_FILE_PREFIX: &str = "ontology";
 
 pub fn ont_dir(cache_root: &StdPath, uri: &Url) -> PathBuf {
-    let url_nameified = url2fname(uri);
+    let url_nameified = base::util::url2fname(uri);
     // NOTE Because the nameified version of the URL could be equal
     //      for different URLs, we append its hash.
-    let url_hash = hasher::hash_num(uri);
+    let url_hash = base::hasher::hash_num(uri);
     let url_dir_name = format!("{url_nameified}-{url_hash}");
 
     cache_root.join("ontologies").join(url_dir_name)
@@ -61,7 +60,7 @@ pub async fn search_ont_files(ont_cache_dir: &StdPath, all: bool) -> io::Result<
 /// Will return `ParseError::UnrecognizedContent` if the content is recognized but not supported.
 pub async fn annotate_ont_files(ont_files: Vec<PathBuf>) -> Result<Vec<OntFile>, mime::ParseError> {
     join_all(ont_files.into_iter().map(|file| async {
-        let mime_type = mime::Type::from_path(&file).await?;
+        let mime_type = mime::Type::from_path_async(&file).await?;
         Ok::<OntFile, mime::ParseError>(OntFile { file, mime_type })
     }))
     .await
@@ -74,7 +73,7 @@ pub async fn look_for_ont_file(
     mime_type: mime::Type,
 ) -> io::Result<Option<PathBuf>> {
     let ont_file_path = ont_file(ont_cache_dir, mime_type);
-    look_for_file(&ont_file_path)
+    base::util::look_for_file_async(&ont_file_path)
         .await
         .map(|exists| if exists { Some(ont_file_path) } else { None })
 }
@@ -151,21 +150,27 @@ pub async fn dl_ont(
         mtype
     } else {
         let uri_path = PathBuf::from(ont_request.uri.path());
-        let url_file_ext_opt = extract_file_ext(&uri_path);
+        let url_file_ext_opt = base::util::extract_file_ext(&uri_path);
         let file_ext_mtype_opt =
             url_file_ext_opt.and_then(|url_file_ext| mime::Type::from_file_ext(url_file_ext).ok());
         if let Some(file_ext_mtype) = file_ext_mtype_opt {
             file_ext_mtype
         } else {
-            mime::Type::from_content(rdf_bytes.as_ref())
-                .or_else(|err| {
-                    if let Some(query_mime_type) = ont_request.query_mime_type {
-                        Ok(query_mime_type)
-                    } else {
-                        Err((StatusCode::INTERNAL_SERVER_ERROR, format!(
-                            "Generic result content-type supplied by ontology server, and we were unable to determine the actual content-type from the returned content: {err}")))
-                    }
-                })?
+            mime::Type::from_content(rdf_bytes.as_ref()).or_else(|err| {
+                ont_request.query_mime_type.map_or_else(
+                    || {
+                        Err((
+                            StatusCode::INTERNAL_SERVER_ERROR,
+                            format!(
+                                "Generic result content-type supplied by ontology server, \
+and we were unable to determine the actual content-type \
+from the returned content: {err}"
+                            ),
+                        ))
+                    },
+                    Ok,
+                )
+            })?
         }
     };
     let ont_file_dl = ont_file(ont_cache_dir, resp_rdf_mime_type);
