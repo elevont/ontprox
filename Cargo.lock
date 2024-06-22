@@ -292,11 +292,13 @@ checksum = "98cc8fbded0c607b7ba9dd60cd98df59af97e84d24e49c8557331cfc26d301ce"
 
 [[package]]
 name = "cli_utils_hoijui"
-version = "0.7.0"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0c0255a7251ef773482aeab24eba649105a4bd7836ca3f172b31d65014d6ea9e"
+checksum = "93b21f92c3c3527e73e58c2785a2d28a196fa1ead33ff541f540f2990e0e4e90"
 dependencies = [
  "once_cell",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]

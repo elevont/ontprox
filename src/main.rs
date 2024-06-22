@@ -5,7 +5,6 @@
 mod cache;
 mod cli;
 mod constants;
-mod logger;
 mod ont_request;
 mod util;
 
@@ -16,6 +15,8 @@ use axum::extract::State;
 use axum::http::HeaderMap;
 use axum::{http::StatusCode, response::IntoResponse, routing::get, Router};
 use cache::*;
+use clap::crate_name;
+use cli_utils::logging;
 use cli_utils::BoxResult;
 use rdfoothills::conversion;
 use rdfoothills::conversion::OntFile;
@@ -44,16 +45,16 @@ pub struct Config {
 }
 
 fn main() -> BoxResult<()> {
-    let log_reload_handle = logger::setup()?;
+    let log_reload_handle = logging::setup(crate_name!())?;
 
     let cli_args = cli::parse()?;
 
     if cli_args.verbose {
-        logger::set_log_level(&log_reload_handle, LevelFilter::DEBUG)?;
+        logging::set_log_level(&log_reload_handle, LevelFilter::DEBUG)?;
     } else if cli_args.quiet {
-        logger::set_log_level(&log_reload_handle, LevelFilter::WARN)?;
+        logging::set_log_level(&log_reload_handle, LevelFilter::WARN)?;
     } else {
-        logger::set_log_level(&log_reload_handle, LevelFilter::INFO)?;
+        logging::set_log_level(&log_reload_handle, LevelFilter::INFO)?;
     }
 
     run_proxy(&cli_args.proxy_conf);
