@@ -50,13 +50,14 @@ fn main() -> BoxResult<()> {
 
     let cli_args = cli::parse()?;
 
-    if cli_args.verbose {
-        logging::set_log_level(&log_reload_handle, LevelFilter::DEBUG)?;
+    let log_level = if cli_args.verbose {
+        LevelFilter::DEBUG
     } else if cli_args.quiet {
-        logging::set_log_level(&log_reload_handle, LevelFilter::WARN)?;
+        LevelFilter::WARN
     } else {
-        logging::set_log_level(&log_reload_handle, LevelFilter::INFO)?;
-    }
+        LevelFilter::INFO
+    };
+    logging::set_log_level_tracing(&log_reload_handle, log_level)?;
 
     run_proxy(&cli_args.proxy_conf);
 
