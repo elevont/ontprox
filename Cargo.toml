@@ -55,7 +55,7 @@ rdfoothills-conversion = { version = "0.5" }
 rdfoothills-mime = { version = "0.5" }
 reqwest = "0.12"
 serde = { version = "1.0", features = ["derive"] }
-thiserror = "1.0"
+thiserror = "2.0"
 tokio = { version = "1.38", features = ["rt-multi-thread"] }
 tokio-util = { version = "0.7", features = ["io"] }
 tower-http = { version = "0.6", features = ["fs", "trace"] }
