@@ -28,8 +28,8 @@ pub const A_S_ADDR: char = 'a';
 pub const A_L_ADDR: &str = "address";
 pub const A_S_CACHE_DIR: char = 'c';
 pub const A_L_CACHE_DIR: &str = "cache-dir";
-pub const A_S_PREFERE_CONVERSION: char = 'C';
-pub const A_L_PREFERE_CONVERSION: &str = "prefere-conversion";
+pub const A_S_PREFER_CONVERSION: char = 'C';
+pub const A_L_PREFER_CONVERSION: &str = "prefer-conversion";
 
 fn arg_version() -> Arg {
     Arg::new(A_L_VERSION)
@@ -97,11 +97,11 @@ fn arg_cache_dir() -> Arg {
         .default_value(DEFAULT_CACHE_ROOT.as_os_str())
 }
 
-fn arg_prefere_conversion() -> Arg {
-    Arg::new(A_L_PREFERE_CONVERSION)
-        .help("Preffer conversion from a cached format over downloading the requested format directly from the supplied URI.")
-        .short(A_S_PREFERE_CONVERSION)
-        .long(A_L_PREFERE_CONVERSION)
+fn arg_prefer_conversion() -> Arg {
+    Arg::new(A_L_PREFER_CONVERSION)
+        .help("Prefer conversion from a cached format over downloading the requested format directly from the supplied URI.")
+        .short(A_S_PREFER_CONVERSION)
+        .long(A_L_PREFER_CONVERSION)
         .action(ArgAction::SetTrue)
 }
 
@@ -117,7 +117,7 @@ pub fn args_matcher() -> Command {
         .arg(arg_port())
         .arg(arg_addr())
         .arg(arg_cache_dir())
-        .arg(arg_prefere_conversion())
+        .arg(arg_prefer_conversion())
 }
 
 #[allow(clippy::print_stdout)]
@@ -160,8 +160,8 @@ pub fn parse() -> BoxResult<Args> {
     let cache_root = args
         .get_one::<String>(A_L_CACHE_DIR)
         .map_or(DEFAULT_CACHE_ROOT.clone(), PathBuf::from);
-    let prefere_conversion_bool = args.get_flag(A_L_PREFERE_CONVERSION);
-    let prefere_conversion = if prefere_conversion_bool {
+    let prefer_conversion_bool = args.get_flag(A_L_PREFER_CONVERSION);
+    let prefer_conversion = if prefer_conversion_bool {
         DlOrConv::Convert
     } else {
         DlOrConv::Download
@@ -173,7 +173,7 @@ pub fn parse() -> BoxResult<Args> {
         proxy_conf: Config {
             addr,
             cache_root,
-            prefere_conversion,
+            prefer_conversion,
         },
     };
 

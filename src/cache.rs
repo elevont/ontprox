@@ -47,14 +47,14 @@ pub async fn search_ont_files(ont_cache_dir: &StdPath, all: bool) -> io::Result<
     Ok(ont_files)
 }
 
-/// Given a list of paths to ontologie files,
+/// Given a list of paths to ontology files,
 /// gathers additional info about them, and returns the result,
 /// including the paths.
 /// This additional info includes the MIME type of the files.
 ///
 /// # Errors
 ///
-/// Will return `ParseError::NoKnownFileExtensionAndReadError` if the file has no extension adn we failed to read the file.
+/// Will return `ParseError::NoKnownFileExtensionAndReadError` if the file has no extension and we failed to read the file.
 /// Will return `ParseError::UnrecognizedFileExtension` if the extension is not supported.
 /// Will return `ParseError::UnidentifiedContent` if the content is not recognized.
 /// Will return `ParseError::UnrecognizedContent` if the content is recognized but not supported.

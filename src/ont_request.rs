@@ -15,7 +15,7 @@ use std::str::FromStr;
 use url::Url;
 
 /// If the requested format is not present yet,
-/// which action to preffer to get it.
+/// which action to prefer to get it.
 /// The other action will be tried if the first one fails.
 #[derive(Debug, Copy, Clone)]
 pub enum DlOrConv {
@@ -108,7 +108,7 @@ impl FromRequestParts<Config> for OntRequest {
         let uri = extract_uri(&query_params)?;
         let query_mime_type = extract_query_accept(&query_params)?;
 
-        let pref = state.prefere_conversion; // TODO Maybe we want to allow setting this with a query parameter as well?
+        let pref = state.prefer_conversion; // TODO Maybe we want to allow setting this with a query parameter as well?
         Ok(Self {
             uri,
             query_mime_type,

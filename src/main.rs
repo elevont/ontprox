@@ -31,7 +31,7 @@ use util::{body_from_content, body_from_file, body_response, respond_with_body};
 use git_version::git_version;
 
 // This tests rust code in the README with doc-tests.
-// Though, It will not appear in the generated documentaton.
+// Though, It will not appear in the generated documentation.
 #[doc = include_str!("../README.md")]
 #[cfg(doctest)]
 pub struct ReadmeDoctests;
@@ -42,7 +42,7 @@ pub const VERSION: &str = git_version!(cargo_prefix = "", fallback = "unknown");
 pub struct Config {
     addr: SocketAddr,
     cache_root: PathBuf,
-    prefere_conversion: DlOrConv,
+    prefer_conversion: DlOrConv,
 }
 
 fn main() -> BoxResult<()> {
@@ -80,7 +80,7 @@ async fn serve(app: Router, addr: SocketAddr) {
         .await
         .map_err(|err| {
             let addition_opt = if addr.port() < 1024 {
-                format!(" - You might need root priviledges to listen on port {}, because it is smaller then 1024", addr.port())
+                format!(" - You might need root privileges to listen on port {}, because it is smaller then 1024", addr.port())
             } else {
                 String::new()
             };
@@ -184,7 +184,7 @@ async fn handler_rdf(
     let dled_ont = dl_ont(&ont_request, &ont_cache_dir).await?;
 
     if dled_ont.mime_type == ont_request.mime_type {
-        // This is possilbe if we just downloaded the ontology
+        // This is possible if we just downloaded the ontology
         Ok(respond_with_body(
             &dled_ont.file,
             ont_request.mime_type,
