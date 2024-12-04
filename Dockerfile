@@ -41,6 +41,9 @@ RUN PYTHONUSERBASE=/install \
 # generated in the previous container(s).
 FROM bitnami/minideb:bookworm
 
+RUN install_packages \
+    ca-certificates
+
 COPY --from=rust-builder /usr/local/cargo/bin/* /usr/local/bin/
 COPY --from=python-builder /install /usr/local
 
