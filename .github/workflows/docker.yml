@@ -8,7 +8,7 @@ on:
   push:
     branches: [ master ]
   release:
-    types: [published]
+    types: [ published ]
 
 env:
   IMAGE_NAME: elevont/ontprox
@@ -67,4 +67,3 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           build-args: |
             BUILDKIT_CONTEXT_KEEP_GIT_DIR=true
-
