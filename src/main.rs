@@ -179,7 +179,9 @@ async fn handler_rdf(
         }
     }
 
-    // NOTE At this point we know, that the format requested by the client is producible by convverting from any of the already cached formats (if any)
+    // NOTE At this point we know that the format requested by the client
+    //      is producible by converting from any of the already cached formats
+    //     (if any).
 
     let dled_ont = dl_ont(&ont_request, &ont_cache_dir).await?;
 
