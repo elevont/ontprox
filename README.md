@@ -45,19 +45,22 @@ https://www.w3.org/TR/swbp-vocab-pub/#negotiation),
 as part of that pracice suggests to use [content negotation]
 to provide the ontology in different formats.
 We could just statically convert our ontology into different formats,
-and be done with it.
-As ontologies can somehow be though of standards for communication,
+and be done with it, so why this service?
+As ontologies can somehow be though of as standards for communication,
 it would be good if they'd be very stable in most cases.
 In practice though - as live goes -
 it is pretty unwise to consider them as static,
 never changing entities of the digital world;
 that would mean,
-setting ourselfs up for failure, stagnation, ... project death.
-No! Ontologies _have to_ change,
+setting ourselfs up for failure, stagnation, ... ultimately: project death.
+So we say: No! Ontologies _have to_ change,
 and in practice, they do.
-Just as in software, they are best hosted on [VCS/SCM][VCS] like [git].
-Naturally, they will also have versions - releases and latest development states,
-all of which we might want to make available (under different [IRI/URI][URI]s),
+Just as in software,
+they are best hosted on [VCS/SCM][VCS] like [git].
+Naturally, they will also have versions -
+releases and latest development states,
+all of which we might want to make available
+(under different [IRI/URI][URI]s),
 _following best practise_ for publishing ontologies.
 This is unfeasible/impractical to do by hosting statically converted files
 for each revision for each RDF serialization format + HTML.
@@ -67,18 +70,20 @@ Thats where this tool enters the scene.
 
 As an example,
 let us imagine an ontology is served under IRI/URI
-<https://w3id.org/someorg/ont/thisone>
+<https://w3id.org/SOME_ORG/ont/SOME_ONT>
 as Turtle.
-This tool - hosted as a public service - can then be used as a proxy,
-given this URI plus a target MIME-type
+This tool -
+hosted as a public service -
+can then be used as a proxy:
+Given the above plus a target MIME-type
 (through the HTTP `Accept` header) -
-for example `application/ld+json` or `text/html`;
-this MIME-type will then be served,
+for example `application/ld+json` or `text/html`,
+it will serve that format/MIME-type,
 if the conversion is possible.
 
-Internally we use [pyLODE] for conversion to HTML,
+Internally, we use [pyLODE] for conversion to HTML,
 and the python [RDFlib] (through a thin CLI wrapper)
-for all other conversion.
+for all other conversions.
 
 **NOTE**
 Caching is involved!
