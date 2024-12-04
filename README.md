@@ -224,7 +224,7 @@ the executable can be found at `target/debug/ontprox`.
 [PATH]: https://en.wikipedia.org/wiki/PATH_(variable)
 [pyLODE]: https://github.com/RDFLib/pyLODE
 [RDF]: https://www.w3.org/RDF/
-[RDF-tools]: https://gitlab.com/OSEGermany/rdf-tools
+[RDF-tools]: https://codeberg.org/elevont/rdf-tools
 [rdftools]: https://github.com/elevont/rdftools
 [RDFlib]: https://rdflib.readthedocs.io
 [RustUp]: https://rustup.rs/
