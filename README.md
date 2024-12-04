@@ -6,8 +6,8 @@ SPDX-License-Identifier: CC0-1.0
 
 # `ontprox` - **Ont**ology **Prox**y
 
-[![License: AGPL-3.0-or-later](
-    https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](
+[![Main License: AGPL-3.0-or-later](
+    https://img.shields.io/badge/Main_License-AGPL--3.0--or--later-blue.svg)](
     LICENSE.txt)
 [![REUSE status](
     https://api.reuse.software/badge/codeberg.org/elevont/ontprox)](
