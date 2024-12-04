@@ -5,8 +5,8 @@
 #
 # SPDX-License-Identifier: Unlicense
 
-# First compile in the rust container
-FROM rust:1.82-bookworm AS builder
+# First, compile in the rust container
+FROM rust:1.82-bookworm AS rust-builder
 WORKDIR /usr/src/app
 COPY ["Cargo.*", "."]
 COPY ["src", "./src"]
@@ -17,7 +17,7 @@ RUN cargo install --path .
 # generated in the previous container(s).
 FROM bitnami/minideb:bookworm
 
-COPY --from=builder /usr/local/cargo/bin/* /usr/local/bin/
+COPY --from=rust-builder /usr/local/cargo/bin/* /usr/local/bin/
 
 # NOTE Labels and annotaitons are added by CI (outside this Dockerfile);
 #      see `.github/workflows/docker.yml`.
