@@ -97,7 +97,7 @@ impl FromRequestParts<Config> for OntRequest {
 
     async fn from_request_parts(
         parts: &mut Parts,
-        state: &Config,
+        config: &Config,
     ) -> Result<Self, Self::Rejection> {
         let query_params: Query<HashMap<String, String>> =
             parts.extract().await.map_err(IntoResponse::into_response)?;
@@ -107,8 +107,8 @@ impl FromRequestParts<Config> for OntRequest {
         let mime_type = extract_requested_content_type(&headers)?;
         let uri = extract_uri(&query_params)?;
         let query_mime_type = extract_query_accept(&query_params)?;
+        let pref = config.prefer_conversion; // TODO Maybe we want to allow setting this with a query parameter as well?
 
-        let pref = state.prefer_conversion; // TODO Maybe we want to allow setting this with a query parameter as well?
         Ok(Self {
             uri,
             query_mime_type,
