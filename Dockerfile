@@ -8,7 +8,8 @@
 # First compile in the rust container
 FROM rust:1.82-bookworm AS builder
 WORKDIR /usr/src/app
-COPY . .
+COPY ["Cargo.*", "."]
+COPY ["src", "./src"]
 RUN cargo install --path .
 
 # Then use a minimal container
