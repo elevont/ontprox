@@ -23,4 +23,6 @@ COPY --from=rust-builder /usr/local/cargo/bin/* /usr/local/bin/
 #      see `.github/workflows/docker.yml`.
 #      This also means they will not be available in local builds.
 
-CMD ["ontprox"]
+ENTRYPOINT ["ontprox"]
+CMD ["--address", "0.0.0.0", "--port", "80"]
+EXPOSE 80
