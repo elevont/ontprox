@@ -13,8 +13,8 @@ COPY ["src", "./src"]
 RUN cargo install --path .
 
 # Then use a minimal container
-# and only copy over the binary
-# generated in the previous container
+# and only copy over the required files
+# generated in the previous container(s).
 FROM bitnami/minideb:bookworm
 
 COPY --from=builder /usr/local/cargo/bin/* /usr/local/bin/
