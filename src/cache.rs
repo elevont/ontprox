@@ -105,12 +105,16 @@ pub async fn dl_ont(
     if let Some(query_mime_type) = ont_request.query_mime_type {
         rdf_dl_req = rdf_dl_req.header(reqwest::header::ACCEPT, query_mime_type.mime_type());
     }
-    let rdf_dl_resp = rdf_dl_req.send().await.map_err(|err| {
-        (
-            StatusCode::INTERNAL_SERVER_ERROR,
-            format!("Failed download from the supplied URI: {err}"),
-        )
-    })?;
+    let rdf_dl_resp = rdf_dl_req
+        .timeout(ont_request.timeout)
+        .send()
+        .await
+        .map_err(|err| {
+            (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                format!("Failed download from the supplied URI: {err}"),
+            )
+        })?;
     let resp_ctype = rdf_dl_resp
         .headers()
         .get(CONTENT_TYPE)

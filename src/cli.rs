@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-use std::{net::IpAddr, path::PathBuf};
+use std::{net::IpAddr, path::PathBuf, time::Duration};
 
 use clap::{builder::OsStr, command, Arg, ArgAction, Command, ValueHint};
 use cli_utils::BoxResult;
@@ -11,7 +11,7 @@ use std::net::SocketAddr;
 use std::str::FromStr;
 
 use crate::{
-    constants::{DEFAULT_ADDRESS, DEFAULT_CACHE_ROOT, DEFAULT_PORT},
+    constants::{DEFAULT_ADDRESS, DEFAULT_CACHE_ROOT, DEFAULT_PORT, DEFAULT_TIMEOUT},
     ont_request::DlOrConv,
     Config,
 };
@@ -30,6 +30,8 @@ pub const A_S_CACHE_DIR: char = 'c';
 pub const A_L_CACHE_DIR: &str = "cache-dir";
 pub const A_S_PREFER_CONVERSION: char = 'C';
 pub const A_L_PREFER_CONVERSION: &str = "prefer-conversion";
+pub const A_S_TIMEOUT: char = 't';
+pub const A_L_TIMEOUT: &str = "timeout";
 
 fn arg_version() -> Arg {
     Arg::new(A_L_VERSION)
@@ -105,6 +107,18 @@ fn arg_prefer_conversion() -> Arg {
         .action(ArgAction::SetTrue)
 }
 
+fn arg_timeout() -> Arg {
+    Arg::new(A_L_TIMEOUT)
+        .help("the timeout in seconds to wait when fetching the RDF source")
+        .num_args(1)
+        .short(A_S_TIMEOUT)
+        .long(A_L_TIMEOUT)
+        .action(ArgAction::Set)
+        .value_hint(ValueHint::Other)
+        .value_name("TIMEOUT")
+        .default_value(OsStr::from(DEFAULT_TIMEOUT.to_string()))
+}
+
 pub fn args_matcher() -> Command {
     command!()
         .about(clap::crate_description!())
@@ -118,6 +132,7 @@ pub fn args_matcher() -> Command {
         .arg(arg_addr())
         .arg(arg_cache_dir())
         .arg(arg_prefer_conversion())
+        .arg(arg_timeout())
 }
 
 #[allow(clippy::print_stdout)]
@@ -166,6 +181,13 @@ pub fn parse() -> BoxResult<Args> {
     } else {
         DlOrConv::Download
     };
+    let timeout = Duration::from_secs(
+        args.get_one::<String>(A_L_TIMEOUT)
+            .map(|timeout_str| timeout_str.parse())
+            .transpose()?
+            .unwrap_or(DEFAULT_TIMEOUT)
+            .into(),
+    );
 
     let parsed_args = Args {
         quiet,
@@ -174,6 +196,7 @@ pub fn parse() -> BoxResult<Args> {
             addr,
             cache_root,
             prefer_conversion,
+            timeout,
         },
     };
 

@@ -10,8 +10,8 @@ use axum::{
     response::{IntoResponse, Response},
     RequestPartsExt,
 };
-use std::collections::HashMap;
 use std::str::FromStr;
+use std::{collections::HashMap, time::Duration};
 use url::Url;
 
 /// If the requested format is not present yet,
@@ -24,6 +24,7 @@ pub enum DlOrConv {
 }
 
 #[derive(Debug)]
+// #[derive(Debug, ToSchema)]
 pub struct OntRequest {
     /// The original ontologies URI.
     pub uri: Url,
@@ -36,6 +37,9 @@ pub struct OntRequest {
     /// and what we try to sent to it.
     pub mime_type: mime::Type,
     pub pref: DlOrConv,
+    /// Time to wait for response when fetching the RDF source.
+    /// See also [`crate::Config::timeout`].
+    pub timeout: Duration,
 }
 
 fn extract_requested_content_type(headers: &HeaderMap) -> Result<mime::Type, Response> {
@@ -107,6 +111,7 @@ impl FromRequestParts<Config> for OntRequest {
         let mime_type = extract_requested_content_type(&headers)?;
         let uri = extract_uri(&query_params)?;
         let query_mime_type = extract_query_accept(&query_params)?;
+        let timeout = config.timeout; // TODO Maybe we want to allow setting this with a query parameter as well?
         let pref = config.prefer_conversion; // TODO Maybe we want to allow setting this with a query parameter as well?
 
         Ok(Self {
@@ -114,6 +119,7 @@ impl FromRequestParts<Config> for OntRequest {
             query_mime_type,
             mime_type,
             pref,
+            timeout,
         })
     }
 }

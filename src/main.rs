@@ -24,6 +24,7 @@ use rdfoothills_conversion::OntFile;
 use rdfoothills_mime as mime;
 use std::net::SocketAddr;
 use std::path::PathBuf;
+use std::time::Duration;
 use tower_http::trace::TraceLayer;
 use tracing_subscriber::filter::LevelFilter;
 use util::{body_from_content, body_from_file, body_response, respond_with_body};
@@ -43,6 +44,9 @@ pub struct Config {
     addr: SocketAddr,
     cache_root: PathBuf,
     prefer_conversion: DlOrConv,
+    /// Time to wait for response when fetching the RDF source.
+    /// See also [`crate::ont_request::OntRequest::timeout`].
+    timeout: Duration,
 }
 
 fn main() -> BoxResult<()> {
