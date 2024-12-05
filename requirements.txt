@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2024 Robin Vobruba <hoijui.quaero@gmail.com>
+#
+# SPDX-License-Identifier: Unlicense
+
+Pygments==2.17.2
+pylode @ git+https://github.com/hoijui/pylode@master
+rdfx @ git+https://github.com/hoijui/rdfx@master
+rdftools @ git+https://github.com/hoijui/rdftools@master
