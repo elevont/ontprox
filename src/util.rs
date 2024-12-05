@@ -23,10 +23,15 @@ pub fn respond_with_body(file: &StdPath, mime_type: mime::Type, body: Body) -> (
 
     // headers.insert(CONTENT_TYPE, "text/toml; charset=utf-8".parse().unwrap());
     headers.insert(CONTENT_TYPE, mime_type.mime_type().parse().unwrap());
+    let attachment = if matches!(mime_type, mime::Type::Html) {
+        ""
+    } else {
+        "attachment; "
+    };
     headers.insert(
         CONTENT_DISPOSITION,
         format!(
-            "attachment; filename=\"{}\"",
+            "{attachment}filename=\"{}\"",
             file.file_name().unwrap().to_string_lossy()
         )
         .parse()
