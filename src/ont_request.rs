@@ -81,6 +81,20 @@ fn extract_uri(query_params: &Query<HashMap<String, String>>) -> Result<Url, Res
     Ok(uri)
 }
 
+fn extract_file_ext(
+    query_params: &Query<HashMap<String, String>>,
+) -> Result<Option<mime::Type>, Response> {
+    let requested_file_ext = query_params
+        .get("file-ext")
+        .map(|file_ext_str| mime::Type::from_file_ext(file_ext_str).map_err(|err|
+            (StatusCode::UNSUPPORTED_MEDIA_TYPE,
+                format!("Failed to parse file extension to be requested '{file_ext_str}' to an RDF MIME type: {err}")
+            ).into_response()))
+        .transpose()?;
+
+    Ok(requested_file_ext)
+}
+
 fn extract_query_accept(
     query_params: &Query<HashMap<String, String>>,
 ) -> Result<Option<mime::Type>, Response> {
@@ -108,7 +122,13 @@ impl FromRequestParts<Config> for OntRequest {
         let headers: HeaderMap = parts.extract().await.map_err(IntoResponse::into_response)?;
         // let config: State<Config> = state.into().await.map_err(IntoResponse::into_response)?;
 
-        let mime_type = extract_requested_content_type(&headers)?;
+        let mime_type = {
+            let this = extract_file_ext(&query_params)?;
+            match this {
+                Some(x) => x,
+                None => extract_requested_content_type(&headers)?,
+            }
+        };
         let uri = extract_uri(&query_params)?;
         let query_mime_type = extract_query_accept(&query_params)?;
         let timeout = config.timeout; // TODO Maybe we want to allow setting this with a query parameter as well?
