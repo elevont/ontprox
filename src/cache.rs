@@ -112,7 +112,14 @@ pub async fn dl_ont(
         .map_err(|err| {
             (
                 StatusCode::INTERNAL_SERVER_ERROR,
-                format!("Failed download from the supplied URI: {err:?}"),
+                format!("Failed download from the supplied URI (internal error): {err:?}"),
+            )
+        })?
+        .error_for_status()
+        .map_err(|err| {
+            (
+                StatusCode::FAILED_DEPENDENCY,
+                format!("Failed download from the supplied URI (wrong URL?): {err:?}"),
             )
         })?;
     let resp_ctype = rdf_dl_resp
