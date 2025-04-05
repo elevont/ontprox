@@ -17,11 +17,11 @@ use std::{path::Path as StdPath, path::PathBuf};
 pub const ONT_FILE_PREFIX: &str = "ontology";
 
 pub fn ont_dir(cache_root: &StdPath, uri: &Url) -> PathBuf {
-    let url_nameified = base::util::url2fname(uri);
+    let url_as_name = base::util::url2fname(uri);
     // NOTE Because the nameified version of the URL could be equal
     //      for different URLs, we append its hash.
     let url_hash = base::hasher::hash_num(uri);
-    let url_dir_name = format!("{url_nameified}-{url_hash}");
+    let url_dir_name = format!("{url_as_name}-{url_hash}");
 
     cache_root.join("ontologies").join(url_dir_name)
 }
@@ -122,7 +122,7 @@ pub async fn dl_ont(
                 format!("Failed download from the supplied URI (wrong URL?): {err:?}"),
             )
         })?;
-    let resp_ctype = rdf_dl_resp
+    let resp_c_type = rdf_dl_resp
         .headers()
         .get(CONTENT_TYPE)
         .map(|value| value.to_str())
@@ -133,7 +133,7 @@ pub async fn dl_ont(
                 format!("Content type contains invisible ASCII chars: {err}"),
             )
         })?;
-    let resp_rdf_mime_type_opt = resp_ctype
+    let resp_rdf_mime_type_opt = resp_c_type
         .map(MediaType::parse)
         .transpose()
         .map_err(|err| (StatusCode::INTERNAL_SERVER_ERROR, format!(
@@ -157,15 +157,15 @@ pub async fn dl_ont(
             format!("Failed to extract content when downloading from the supplied URI: {err}"),
         )
     })?;
-    let resp_rdf_mime_type = if let Some(mtype) = resp_rdf_mime_type_opt {
-        mtype
+    let resp_rdf_mime_type = if let Some(m_type) = resp_rdf_mime_type_opt {
+        m_type
     } else {
         let uri_path = PathBuf::from(ont_request.uri.path());
         let url_file_ext_opt = base::util::extract_file_ext(&uri_path);
-        let file_ext_mtype_opt =
+        let file_ext_m_type_opt =
             url_file_ext_opt.and_then(|url_file_ext| mime::Type::from_file_ext(url_file_ext).ok());
-        if let Some(file_ext_mtype) = file_ext_mtype_opt {
-            file_ext_mtype
+        if let Some(file_ext_m_type) = file_ext_m_type_opt {
+            file_ext_m_type
         } else {
             mime::Type::from_content(rdf_bytes.as_ref()).or_else(|err| {
                 ont_request.query_mime_type.map_or_else(

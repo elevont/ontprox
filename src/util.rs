@@ -43,8 +43,8 @@ pub fn respond_with_body(file: &StdPath, mime_type: mime::Type, body: Body) -> (
 
 pub async fn body_from_file(file: &StdPath) -> Result<Body, (StatusCode, String)> {
     // `File` implements `AsyncRead`
-    let file_handl = match tokio::fs::File::open(file).await {
-        Ok(file_handl) => file_handl,
+    let file_hdl = match tokio::fs::File::open(file).await {
+        Ok(file_hdl) => file_hdl,
         Err(err) => {
             return Err((
                 StatusCode::NOT_FOUND,
@@ -53,7 +53,7 @@ pub async fn body_from_file(file: &StdPath) -> Result<Body, (StatusCode, String)
         }
     };
     // convert the `AsyncRead` into a `Stream`
-    let stream = ReaderStream::new(file_handl);
+    let stream = ReaderStream::new(file_hdl);
     // convert the `Stream` into an `axum::body::HttpBody`
     Ok(Body::from_stream(stream))
 }

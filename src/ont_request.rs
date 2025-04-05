@@ -45,8 +45,8 @@ pub struct OntRequest {
 fn extract_requested_content_type(headers: &HeaderMap) -> Result<mime::Type, Response> {
     let content_type_str = headers
         .get(ACCEPT)
-        .map(|ctype| {
-            HeaderValue::to_str(ctype).map_err(|err| {
+        .map(|c_type| {
+            HeaderValue::to_str(c_type).map_err(|err| {
                 (
                     StatusCode::NOT_FOUND,
                     format!("Failed to convert header value for 'content-type' to string: {err}"),
@@ -56,9 +56,9 @@ fn extract_requested_content_type(headers: &HeaderMap) -> Result<mime::Type, Res
         })
         .transpose()?;
     let mime_type = content_type_str
-        .map(|ctype_str| mime::Type::from_str(ctype_str).map_err(|err|
+        .map(|c_type_str| mime::Type::from_str(c_type_str).map_err(|err|
             (StatusCode::UNSUPPORTED_MEDIA_TYPE,
-                format!("Failed to parse requested content-type '{ctype_str}' to an RDF MIME type: {err}")
+                format!("Failed to parse requested content-type '{c_type_str}' to an RDF MIME type: {err}")
             ).into_response()))
         .transpose()?
         .unwrap_or_default();
@@ -100,9 +100,9 @@ fn extract_query_accept(
 ) -> Result<Option<mime::Type>, Response> {
     let query_mime_type = query_params
         .get("query-accept")
-        .map(|ctype_str| mime::Type::from_str(ctype_str).map_err(|err|
+        .map(|c_type_str| mime::Type::from_str(c_type_str).map_err(|err|
             (StatusCode::UNSUPPORTED_MEDIA_TYPE,
-                format!("Failed to parse content-type to be requested '{ctype_str}' to an RDF MIME type: {err}")
+                format!("Failed to parse content-type to be requested '{c_type_str}' to an RDF MIME type: {err}")
             ).into_response()))
         .transpose()?;
 

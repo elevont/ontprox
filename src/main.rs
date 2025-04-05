@@ -187,29 +187,29 @@ async fn handler_rdf(
     //      is producible by converting from any of the already cached formats
     //     (if any).
 
-    let dled_ont = dl_ont(&ont_request, &ont_cache_dir).await?;
+    let ont_dl = dl_ont(&ont_request, &ont_cache_dir).await?;
 
-    if dled_ont.mime_type == ont_request.mime_type {
+    if ont_dl.mime_type == ont_request.mime_type {
         // This is possible if we just downloaded the ontology
         Ok(respond_with_body(
-            &dled_ont.file,
+            &ont_dl.file,
             ont_request.mime_type,
-            body_from_content(dled_ont.content),
+            body_from_content(ont_dl.content),
         ))
     } else {
         // This is possible, if the ontology server returned a different format then the one we requested
-        if dled_ont.mime_type.is_machine_readable() {
-            let dled_ont_file = dled_ont.into_ont_file();
+        if ont_dl.mime_type.is_machine_readable() {
+            let ont_dl_file = ont_dl.into_ont_file();
             let requested_ont_file_path = cache::ont_file(&ont_cache_dir, ont_request.mime_type);
             let requested_ont_file = OntFile {
                 file: requested_ont_file_path,
                 mime_type: ont_request.mime_type,
             };
-            convert(&dled_ont_file, &requested_ont_file, false).await
+            convert(&ont_dl_file, &requested_ont_file, false).await
         } else {
             Err((StatusCode::INTERNAL_SERVER_ERROR, format!(
                 "As the format returned by the server ({}) is not machine-readable, it cannot be converted into the requested format.",
-                dled_ont.mime_type
+                ont_dl.mime_type
             )))
         }
     }
