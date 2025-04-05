@@ -4,7 +4,6 @@
 
 use crate::{mime, Config};
 use axum::{
-    async_trait,
     extract::{FromRequestParts, Query},
     http::{header::ACCEPT, request::Parts, HeaderMap, HeaderValue, StatusCode},
     response::{IntoResponse, Response},
@@ -109,7 +108,6 @@ fn extract_query_accept(
     Ok(query_mime_type)
 }
 
-#[async_trait]
 impl FromRequestParts<Config> for OntRequest {
     type Rejection = Response;
 
