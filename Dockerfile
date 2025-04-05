@@ -25,6 +25,7 @@ WORKDIR /tmp/work
 COPY requirements.txt ./
 RUN \
     pip install \
+        --no-cache-dir \
         --user \
         --upgrade \
         --requirement requirements.txt && \
