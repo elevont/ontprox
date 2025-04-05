@@ -20,6 +20,8 @@ FROM bitnami/python:3.13-debian-12
 RUN install_packages \
     ca-certificates
 
+WORKDIR /tmp/work
+
 COPY requirements.txt ./
 RUN \
     pip install \
