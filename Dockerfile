@@ -31,7 +31,7 @@ ENV PATH="$PATH:/root/.local/bin/"
 
 COPY --from=rust-builder /usr/local/cargo/bin/* /usr/local/bin/
 
-# NOTE Labels and annotaitons are added by CI (outside this Dockerfile);
+# NOTE Labels and annotations are added by CI (outside this Dockerfile);
 #      see `.github/workflows/docker.yml`.
 #      This also means they will not be available in local builds.
 
