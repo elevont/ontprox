@@ -18,7 +18,8 @@ RUN cargo install --path .
 FROM bitnami/python:3.13-debian-12
 
 RUN install_packages \
-    ca-certificates
+    ca-certificates \
+    default-jre-headless
 
 WORKDIR /tmp/work
 
@@ -33,6 +34,18 @@ RUN \
 ENV PATH="$PATH:/root/.local/bin/"
 
 COPY --from=rust-builder /usr/local/cargo/bin/* /usr/local/bin/
+
+WORKDIR /root/.local/bin/
+
+COPY ["run/downloader", "./"]
+
+# Setup ROBOT (RDF tool; also supports conversion; written in Java)
+RUN \
+    downloader \
+        "https://github.com/ontodev/robot/releases/download/v1.9.7/robot.jar" \
+    && downloader \
+        "https://raw.githubusercontent.com/ontodev/robot/master/bin/robot" \
+    && chmod +x robot
 
 # NOTE Labels and annotations are added by CI (outside this Dockerfile);
 #      see `.github/workflows/docker.yml`.
