@@ -49,14 +49,14 @@ dirs = "6.0"
 futures = "0.3"
 git-version = "0.3"
 mediatype = "0.19"
-openssl = { version = "=0.10.64", features = ["vendored"] }
+openssl = { version = "=0.10.73", features = ["vendored"] }
 rdfoothills-base = { version = "0.6", features = ["url"] }
 rdfoothills-conversion = { version = "0.6" }
 rdfoothills-mime = { version = "0.6" }
 reqwest = "0.12"
 serde = { version = "1.0", features = ["derive"] }
 thiserror = "2.0"
-tokio = { version = "1.45", features = ["rt-multi-thread"] }
+tokio = { version = "1.46", features = ["rt-multi-thread"] }
 tokio-util = { version = "0.7", features = ["io"] }
 tower-http = { version = "0.6", features = ["fs", "trace"] }
 tracing = "0.1"
