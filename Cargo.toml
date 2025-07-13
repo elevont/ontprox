@@ -48,10 +48,10 @@ const_format = "0.2"
 dirs = "6.0"
 futures = "0.3"
 git-version = "0.3"
-mediatype = "0.19"
-rdfoothills-base = { version = "0.6", features = ["url"] }
-rdfoothills-conversion = { version = "0.6" }
-rdfoothills-mime = { version = "0.6" }
+mediatype = "0.20"
+rdfoothills-base = { version = "0.7", features = ["url"] }
+rdfoothills-conversion = { version = "0.7" }
+rdfoothills-mime = { version = "0.7" }
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
 serde = { version = "1.0", features = ["derive"] }
 thiserror = "2.0"

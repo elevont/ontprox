@@ -847,9 +847,9 @@ checksum = "47e1ffaa40ddd1f3ed91f717a33c8c0ee23fff369e3aa8772b9605cc1d22f4c3"
 
 [[package]]
 name = "mediatype"
-version = "0.19.20"
+version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "33746aadcb41349ec291e7f2f0a3aa6834d1d7c58066fb4b01f68efc4c4b7631"
+checksum = "f490ea2ae935dd8ac89c472d4df28c7f6b87cc20767e1b21fd5ed6a16e7f61e4"
 
 [[package]]
 name = "memchr"
@@ -1169,7 +1169,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.52.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -1248,9 +1248,9 @@ dependencies = [
 
 [[package]]
 name = "rdfoothills-base"
-version = "0.6.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1c5aad096a89bf276297a2e9d36e640e021e2365d7e4c563ef3e70a0131e8812"
+checksum = "64a79b5216ee37033c4f588b96098997d0f42fbf09b7396e2351d58cbc52e6ed"
 dependencies = [
  "git-version",
  "regex",
@@ -1260,9 +1260,9 @@ dependencies = [
 
 [[package]]
 name = "rdfoothills-conversion"
-version = "0.6.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f1da8652fb43fceada5e8be8882c6e73ef3351210f122602516fb96a8698080"
+checksum = "386b48b56eaa7bc596dbcc68c51be44bf6d7ac479274d32b743b94b5e5d0fda2"
 dependencies = [
  "async-trait",
  "oxrdfio",
@@ -1274,9 +1274,9 @@ dependencies = [
 
 [[package]]
 name = "rdfoothills-mime"
-version = "0.6.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "157afac585c4c6a52e2e9639f5b67bd6a5439eb0e0d9d96f84e12da68ddc9f63"
+checksum = "d235792f3159cba1ee22465520809b148dae209d6e44baf00a563c606c20510f"
 dependencies = [
  "infer",
  "mediatype",
