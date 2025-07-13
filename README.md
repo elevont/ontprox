@@ -40,9 +40,9 @@ as long as it is available in one of them.
 ## Why
 
 This tool - when hosted - comes in handy
-when trying to comply with [best practise of publishinig ontologies/vocabularies](
+when trying to comply with [best practice of publishing ontologies/vocabularies](
 https://www.w3.org/TR/swbp-vocab-pub/#negotiation),
-as part of that pracice suggests to use [content negotation]
+as part of that practice suggests to use [content negotiation]
 to provide the ontology in different formats.
 We could just statically convert our ontology into different formats,
 and be done with it, so why this service?
@@ -52,7 +52,7 @@ In practice though - as live goes -
 it is pretty unwise to consider them as static,
 never changing entities of the digital world;
 that would mean,
-setting ourselfs up for failure, stagnation, ... ultimately: project death.
+setting ourselves up for failure, stagnation, ... ultimately: project death.
 So we say: No! Ontologies _have to_ change,
 and in practice, they do.
 Just as in software,
@@ -61,7 +61,7 @@ Naturally, they will also have versions -
 releases and latest development states,
 all of which we might want to make available
 (under different [IRI/URI][URI]s),
-_following best practise_ for publishing ontologies.
+_following best practice_ for publishing ontologies.
 This is unfeasible/impractical to do by hosting statically converted files
 for each revision for each RDF serialization format + HTML.
 Thats where this tool enters the scene.
@@ -169,8 +169,8 @@ Options:
 
           [default: ~/.cache/ontprox]
 
-  -C, --prefere-conversion
-          Preffer conversion from a cached format over downloading the requested format directly from the supplied URI.
+  -C, --prefer-conversion
+          Prefer conversion from a cached format over downloading the requested format directly from the supplied URI.
 
   -h, --help
           Print help (see a summary with '-h')
