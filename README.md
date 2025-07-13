@@ -17,7 +17,7 @@ SPDX-License-Identifier: CC0-1.0
     https://codeberg.org/elevont/ontprox)
 [![Statistics](
     https://img.shields.io/badge/Statistics-8946FF?style=flat&label=lib.rs&labelColor=EEEEEE)](
-    https://lib.rs/ontprox)
+    https://lib.rs/crates/ontprox)
 [![Package Releases](
     https://img.shields.io/crates/v/ontprox.svg)](
     https://crates.io/crates/ontprox)
@@ -70,7 +70,7 @@ Thats where this tool enters the scene.
 
 As an example,
 let us imagine an ontology is served under IRI/URI
-<https://w3id.org/SOME_ORG/ont/SOME_ONT>
+`https://w3id.org/SOME_ORG/ont/SOME_ONT`
 as Turtle.
 This tool -
 hosted as a public service -
@@ -111,7 +111,7 @@ As for now, you have two choices:
 
 1. [Compile it](#how-to-compile) yourself
 1. Download a Linux x86\_64 statically linked binary from
-   [the latest release](https://codeberg.org/elevont/ontprox/releases/latest)
+   [the latest release](https://github.com/elevont/ontprox/releases/latest)
 
 ### Run
 
@@ -183,7 +183,7 @@ Options:
 When the service is running on `http://127.0.0.1:3000`,
 you can fetch the HTML version
 of e.g. the [ValueFlows] (VF) ontology as HTML,
-either by opening <http://127.0.0.1:3000?uri=https://w3id.org/valueflows/ont/vf.TTL>
+either by opening `http://127.0.0.1:3000?uri=https://w3id.org/valueflows/ont/vf.TTL`
 in your browser, or on the command line with [CURL]:
 
 ```shell
@@ -228,13 +228,13 @@ the executable can be found at `target/debug/ontprox`.
 [Open Know-How]: https://github.com/iop-alliance/OpenKnowHow
 [PATH]: https://en.wikipedia.org/wiki/PATH_(variable)
 [pyLODE]: https://github.com/RDFLib/pyLODE
-[RDF]: https://www.w3.org/RDF/
+[RDF]: https://en.wikipedia.org/wiki/Resource_Description_Framework
 [RDF-tools]: https://codeberg.org/elevont/rdf-tools
 [rdftools]: https://github.com/elevont/rdftools
-[RDFlib]: https://rdflib.readthedocs.io
+[RDFlib]: https://rdflib.readthedocs.io/en/stable/
 [RustUp]: https://rustup.rs/
-[ValueFlows]: https://valueflo.ws/
-[content negotation]: https://en.wikipedia.org/wiki/Content_negotiation
+[ValueFlows]: https://www.valueflo.ws/
+[content negotiation]: https://en.wikipedia.org/wiki/Content_negotiation
 [VCS]: https://en.wikipedia.org/wiki/Version_control
 [git]: https://git-scm.com/
 [URI]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
