@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2024 Robin Vobruba <hoijui.quaero@gmail.com>
+# SPDX-FileCopyrightText: 2024 - 2026 Robin Vobruba <hoijui.quaero@gmail.com>
 #
 # SPDX-License-Identifier: Unlicense
 
@@ -41,9 +41,9 @@ result_large_err = "allow"
 
 [dependencies]
 axum = { version = "0.8", features = ["multipart"] }
-axum-extra = { version = "0.10" }
-clap = { version = "4.5", features = ["cargo", "string"] }
-cli_utils = { version = "0.10", package = "cli_utils_hoijui", features = ["logging"] }
+axum-extra = { version = "0.12" }
+clap = { version = "4.6", features = ["cargo", "string"] }
+cli_utils = { version = "0.13", package = "cli_utils_hoijui", features = ["logging"] }
 const_format = "0.2"
 dirs = "6.0"
 futures = "0.3"
@@ -52,12 +52,12 @@ mediatype = "0.20"
 rdfoothills-base = { version = "0.7", features = ["url"] }
 rdfoothills-conversion = { version = "0.7" }
 rdfoothills-mime = { version = "0.7" }
-reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
+reqwest = { version = "0.13", default-features = false, features = ["rustls"] }
 serde = { version = "1.0", features = ["derive"] }
 thiserror = "2.0"
-tokio = { version = "1.46", features = ["rt-multi-thread"] }
+tokio = { version = "1.52", features = ["rt-multi-thread"] }
 tokio-util = { version = "0.7", features = ["io"] }
-tower-http = { version = "0.6", features = ["fs", "trace"] }
+tower-http = { version = "0.7", features = ["fs", "trace"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 url = "2.5"
