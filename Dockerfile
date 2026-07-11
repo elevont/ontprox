@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1.20
 # NOTE Lint this file with https://hadolint.github.io/hadolint/
 
 # SPDX-FileCopyrightText: 2022 - 2026 Robin Vobruba <hoijui.quaero@gmail.com>
