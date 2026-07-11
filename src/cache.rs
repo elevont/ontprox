@@ -4,7 +4,7 @@
 
 use crate::mime;
 use crate::ont_request::OntRequest;
-use axum::http::{header::CONTENT_TYPE, StatusCode};
+use axum::http::{StatusCode, header::CONTENT_TYPE};
 use futures::future::join_all;
 use mediatype::MediaType;
 use rdfoothills_base as base;

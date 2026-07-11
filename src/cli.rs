@@ -4,16 +4,16 @@
 
 use std::{net::IpAddr, path::PathBuf, time::Duration};
 
-use clap::{builder::OsStr, command, Arg, ArgAction, Command, ValueHint};
+use clap::{Arg, ArgAction, Command, ValueHint, builder::OsStr, command};
 use cli_utils::BoxResult;
 use const_format::formatcp;
 use std::net::SocketAddr;
 use std::str::FromStr;
 
 use crate::{
+    Config,
     constants::{DEFAULT_ADDRESS, DEFAULT_CACHE_ROOT, DEFAULT_PORT, DEFAULT_TIMEOUT},
     ont_request::DlOrConv,
-    Config,
 };
 
 pub const A_S_VERSION: char = 'V';

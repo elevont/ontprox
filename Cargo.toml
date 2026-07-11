@@ -14,7 +14,7 @@ keywords = ["cli", "conversion", "ontology", "rdf", "web-service"]
 categories = ["caching", "command-line-utilities", "web-programming::http-server"]
 publish = true
 readme = "README.md"
-edition = "2021"
+edition = "2024"
 
 [lints.rust]
 rust_2021_compatibility = { level = "warn", priority = -1 }

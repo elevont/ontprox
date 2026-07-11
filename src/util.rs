@@ -4,7 +4,7 @@
 
 use axum::{
     body::Body,
-    http::{header::CONTENT_TYPE, HeaderMap, StatusCode},
+    http::{HeaderMap, StatusCode, header::CONTENT_TYPE},
 };
 use rdfoothills_conversion::OntFile;
 use rdfoothills_mime as mime;
@@ -49,7 +49,7 @@ pub async fn body_from_file(file: &StdPath) -> Result<Body, (StatusCode, String)
             return Err((
                 StatusCode::NOT_FOUND,
                 format!("File '{}' not found: {err}", file.display()),
-            ))
+            ));
         }
     };
     // convert the `AsyncRead` into a `Stream`

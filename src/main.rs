@@ -13,11 +13,11 @@ use crate::ont_request::OntRequest;
 use axum::body::Body;
 use axum::extract::State;
 use axum::http::HeaderMap;
-use axum::{http::StatusCode, response::IntoResponse, routing::get, Router};
+use axum::{Router, http::StatusCode, response::IntoResponse, routing::get};
 use cache::{annotate_ont_files, dl_ont, ont_dir, ont_file, search_ont_files};
 use clap::crate_name;
-use cli_utils::logging;
 use cli_utils::BoxResult;
+use cli_utils::logging;
 use rdfoothills_base as base;
 use rdfoothills_conversion as conversion;
 use rdfoothills_conversion::OntFile;
@@ -207,10 +207,13 @@ async fn handler_rdf(
             };
             convert(&ont_dl_file, &requested_ont_file, false).await
         } else {
-            Err((StatusCode::INTERNAL_SERVER_ERROR, format!(
-                "As the format returned by the server ({}) is not machine-readable, it cannot be converted into the requested format.",
-                ont_dl.mime_type
-            )))
+            Err((
+                StatusCode::INTERNAL_SERVER_ERROR,
+                format!(
+                    "As the format returned by the server ({}) is not machine-readable, it cannot be converted into the requested format.",
+                    ont_dl.mime_type
+                ),
+            ))
         }
     }
 }

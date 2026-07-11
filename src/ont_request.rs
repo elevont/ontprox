@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-use crate::{mime, Config};
+use crate::{Config, mime};
 use axum::{
-    extract::{FromRequestParts, Query},
-    http::{header::ACCEPT, request::Parts, HeaderMap, HeaderValue, StatusCode},
-    response::{IntoResponse, Response},
     RequestPartsExt,
+    extract::{FromRequestParts, Query},
+    http::{HeaderMap, HeaderValue, StatusCode, header::ACCEPT, request::Parts},
+    response::{IntoResponse, Response},
 };
 use std::str::FromStr;
 use std::{collections::HashMap, time::Duration};
