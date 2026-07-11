@@ -15,7 +15,9 @@ RUN cargo install --path .
 # Then use a minimal container
 # and only copy over the required files
 # generated in the previous container(s).
-FROM bitnami/python:3.13-debian-12
+# NOTE: Why **legacy**?
+#       See <https://ioflair.com/blog/fix-broken-bitnami-deployments-why-your-images-disappeared-and-how-to-pull-them-again/>
+FROM bitnamilegacy/python:3.13-debian-12
 
 RUN install_packages \
     ca-certificates \
