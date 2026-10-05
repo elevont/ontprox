@@ -174,7 +174,7 @@ pub fn parse() -> BoxResult<Args> {
     let addr = SocketAddr::from((ip_addr, port));
     let cache_root = args
         .get_one::<String>(A_L_CACHE_DIR)
-        .map_or(DEFAULT_CACHE_ROOT.clone(), PathBuf::from);
+        .map_or_else(|| DEFAULT_CACHE_ROOT.clone(), PathBuf::from);
     let prefer_conversion_bool = args.get_flag(A_L_PREFER_CONVERSION);
     let prefer_conversion = if prefer_conversion_bool {
         DlOrConv::Convert
