@@ -9,7 +9,6 @@ license = "AGPL-3.0-or-later"
 authors = ["Robin Vobruba <hoijui.quaero@gmail.com>"]
 description = """RDF format conversion as a web-service."""
 repository = "https://codeberg.org/elevont/ontprox"
-homepage = "https://codeberg.org/elevont/ontprox"
 keywords = ["cli", "conversion", "ontology", "rdf", "web-service"]
 categories = ["caching", "command-line-utilities", "web-programming::http-server"]
 publish = true
