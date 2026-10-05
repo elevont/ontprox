@@ -44,10 +44,10 @@ axum-extra = { version = "0.12" }
 clap = { version = "4.6", features = ["cargo", "string"] }
 cli_utils = { version = "0.13", package = "cli_utils_hoijui", features = ["logging"] }
 const_format = "0.2"
-dirs = "6.0"
+dirs = "7.0"
 futures = "0.3"
 git-version = "0.3"
-mediatype = "0.20"
+mediatype = "0.23"
 rdfoothills-base = { version = "0.7", features = ["url"] }
 rdfoothills-conversion = { version = "0.7" }
 rdfoothills-mime = { version = "0.7" }
